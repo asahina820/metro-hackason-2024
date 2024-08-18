@@ -8,8 +8,6 @@
     <!-- MapLibre GL JS -->
     <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-    <!-- PMTiles -->
-    <script src="https://unpkg.com/pmtiles/dist/pmtiles.js"></script>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   </head>
   <body>
@@ -19,6 +17,7 @@
       <p>混雑度シミュレーション</p>
       <button id="start-button">Start</button>
     </div>
-    <script src="main.js"></script>
+    <script type="module" src="trainAnimation.js"></script>
+    <script type="module" src="map.js"></script>
   </body>
 </html>

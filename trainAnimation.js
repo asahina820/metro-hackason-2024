@@ -1,135 +1,6 @@
-// MapLibre GL JSのマップ設定
-const map = new maplibregl.Map({
-  container: "map",
-  center: [139.770692, 35.768351], // 中心座標
-  zoom: 13.5, // ズームレベル
-  pitch: 30,
-  maxPitch: 85,
-  bearing: -80,
-  style: getMapStyle(), // マップスタイルを外部関数から取得
-});
+// trainAnimation.js
 
-map.on("load", () => {
-  loadGeoJsonData("./data/stops.geojson", processStopsData);
-});
-
-// マップスタイルの設定を外部関数化
-function getMapStyle() {
-  return {
-    version: 8,
-    glyphs: "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
-    sources: getMapSources(),
-    layers: getMapLayers(),
-    terrain: {
-      source: "aws-terrain",
-      exaggeration: 1,
-    },
-    sky: {
-      "sky-color": "#199EF3",
-      "sky-horizon-blend": 0.5,
-      "horizon-color": "#ffffff",
-      "horizon-fog-blend": 0.5,
-      "fog-color": "#0000ff",
-      "fog-ground-blend": 0.5,
-      "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 10, 1, 12, 0],
-    },
-  };
-}
-
-// マップソースの設定を外部関数化
-function getMapSources() {
-  return {
-    "background-osm-raster": {
-      type: "raster",
-      tiles: ["https://tile.openstreetmap.jp/styles/osm-bright-ja/{z}/{x}/{y}.png"],
-      tileSize: 256,
-      attribution: "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap contributors</a>",
-    },
-    "aws-terrain": {
-      type: "raster-dem",
-      minzoom: 1,
-      maxzoom: 15,
-      encoding: "terrarium",
-      tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
-      attribution: "ArcticDEM terrain data DEM(s) were created from DigitalGlobe, Inc., imagery and funded under National Science Foundation awards...",
-    },
-    stop: {
-      type: "geojson",
-      data: "./data/stops.geojson",
-      attribution: "コンテンツ等の提供者名: 東京都交通局・公共交通オープンデータ協議会",
-    },
-    route: {
-      type: "geojson",
-      data: "./data/route.geojson",
-    },
-    "plateau-bldg": {
-      type: "vector",
-      tiles: ["https://indigo-lab.github.io/plateau-lod2-mvt/{z}/{x}/{y}.pbf"],
-      minzoom: 10,
-      maxzoom: 16,
-      attribution: "<a href='https://github.com/indigo-lab/plateau-lod2-mvt'>plateau-lod2-mvt by indigo-lab</a>",
-    },
-  };
-}
-
-// マップレイヤーの設定を外部関数化
-function getMapLayers() {
-  return [
-    {
-      id: "background-osm-raster",
-      type: "raster",
-      source: "background-osm-raster",
-    },
-    {
-      id: "bldg",
-      type: "fill-extrusion",
-      source: "plateau-bldg",
-      "source-layer": "bldg",
-      paint: {
-        "fill-extrusion-height": ["*", ["get", "z"], 1],
-        "fill-extrusion-color": "#f0f0f0",
-        "fill-extrusion-opacity": 0.3,
-      },
-    },
-    {
-      id: "line-layer",
-      type: "line",
-      source: "route",
-      paint: {
-        "line-color": "#eb347c",
-        "line-width": 5,
-      },
-    },
-    {
-      id: "point-layer",
-      type: "circle",
-      source: "stop",
-      paint: {
-        "circle-stroke-width": 5,
-        "circle-stroke-color": "black",
-        "circle-opacity": 0,
-        "circle-radius": 20,
-        "circle-stroke-opacity": 0.5,
-      },
-    },
-    {
-      id: "symbol-layer",
-      type: "symbol",
-      source: "stop",
-      layout: {
-        "text-field": ["get", "stop_name"],
-      },
-    },
-  ];
-}
-
-// GeoJSONデータの読み込み
-function loadGeoJsonData(url, callback) {
-  fetch(url)
-    .then((response) => response.json())
-    .then(callback)
-    .catch((error) => console.error(`Error loading GeoJSON data from ${url}:`, error));
-}
+import { map, loadGeoJsonData } from "./map.js";
 
 // 駅データの処理
 function processStopsData(stopsData) {
@@ -282,3 +153,7 @@ function removeTrain(trainId) {
     map.removeSource(sourceId);
   }
 }
+
+map.on("load", () => {
+  loadGeoJsonData("./data/stops.geojson", processStopsData);
+});
