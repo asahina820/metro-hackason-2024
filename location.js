@@ -11,10 +11,12 @@ const geolocateControl = new maplibregl.GeolocateControl({
 
 map.addControl(geolocateControl);
 
+let currentLocation;
+
 map.on("load", () => {
   // ユーザーの位置が取得されたときの処理
   geolocateControl.on("geolocate", (position) => {
-    const currentLocation = [position.coords.longitude, position.coords.latitude];
+    currentLocation = [position.coords.longitude, position.coords.latitude];
     console.log("User Coordinates:", currentLocation);
   });
 });
