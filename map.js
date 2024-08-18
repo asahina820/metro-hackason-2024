@@ -11,6 +11,25 @@ const map = new maplibregl.Map({
   style: getMapStyle(), // マップスタイルを外部関数から取得
 });
 
+const geolocateControl = new maplibregl.GeolocateControl({
+  positionOptions: {
+    enableHighAccuracy: true,
+  },
+  fitBoundsOptions: { maxZoom: 18 },
+  trackUserLocation: true,
+  showUserLocation: true,
+});
+
+map.addControl(geolocateControl);
+
+map.on("load", () => {
+  // ユーザーの位置が取得されたときの処理
+  geolocateControl.on("geolocate", (position) => {
+    console.log("Geolocation found:", position);
+    const userCoords = [position.coords.longitude, position.coords.latitude];
+    console.log("User Coordinates:", userCoords);
+  });
+});
 // マップスタイルの設定を外部関数化
 function getMapStyle() {
   return {
