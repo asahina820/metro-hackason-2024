@@ -14,59 +14,59 @@ map.addControl(geolocateControl);
 let currentLocation;
 
 //ジオリファレンスの判定関数
-const filePath = './data/stops_buffer.geojson';
+const filePath = "./data/stops_buffer.geojson";
 
 // geojsonファイルを読み込む
 async function loadGeoJSON() {
   try {
     const response = await fetch(filePath);
-    const data = await response.json();  // JSONとしてデータをパース
-    console.log(data);  // データをコンソールに表示
-    return data;  // 読み込んだデータを返す
+    const data = await response.json(); // JSONとしてデータをパース
+    console.log(data); // データをコンソールに表示
+    return data; // 読み込んだデータを返す
   } catch (error) {
-    console.error('ファイルの読み込みに失敗しました:', error);
+    console.error("ファイルの読み込みに失敗しました:", error);
   }
 }
 
-
 const geofence = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-      "type": "Polygon",
-      "coordinates": [
-          [
-              [139.6897, 35.6895],
-              [139.7937, 35.6895],
-              [139.7937, 35.7815],
-              [139.6897, 35.7815],
-              [139.6897, 35.6895]
-          ]
-      ]
-  }
+  type: "Feature",
+  properties: {},
+  geometry: {
+    type: "Polygon",
+    coordinates: [
+      [
+        [139.6897, 35.6895],
+        [139.7937, 35.6895],
+        [139.7937, 35.7815],
+        [139.6897, 35.7815],
+        [139.6897, 35.6895],
+      ],
+    ],
+  },
 };
 // 時間を判定
 function isInOperatingHours() {
   const now = new Date();
   const hours = now.getHours();
-  return hours >= 10 && hours <= 19;  // 10時から11時までの間
+  return hours >= 10 && hours <= 19; // 10時から11時までの間
 }
 
-// 
+//
 function watchUserPosition() {
+  const campaignSections = document.getElementById("campaign-sections");
   if (!isInOperatingHours()) {
     console.log("時間外です");
+    campaignSections.style.display = "none";
     return;
   }
 
-  const inside = turf.booleanPointInPolygon(
-    currentLocation,
-    geofence
-  );
+  const inside = turf.booleanPointInPolygon(currentLocation, geofence);
   if (inside) {
     console.log("ユーザーはジオフェンス内にいます");
+    campaignSections.style.display = "block";
   } else {
     console.log("ユーザーはジオフェンス外にいます");
+    campaignSections.style.display = "none";
   }
 }
 
@@ -75,9 +75,8 @@ map.on("load", () => {
   geolocateControl.on("geolocate", (position) => {
     currentLocation = [position.coords.longitude, position.coords.latitude];
     console.log("User Coordinates:", currentLocation);
-    watchUserPosition() 
+    watchUserPosition();
   });
-
 });
 
 export { currentLocation };
