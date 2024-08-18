@@ -140,18 +140,6 @@ function getMapLayers() {
       },
     },
     {
-      id: "point-layer",
-      type: "circle",
-      source: "stop",
-      paint: {
-        "circle-stroke-width": 5,
-        "circle-stroke-color": "black",
-        "circle-opacity": 0,
-        "circle-radius": 20,
-        "circle-stroke-opacity": 0.5,
-      },
-    },
-    {
       id: "symbol-layer",
       type: "symbol",
       source: "stop",
