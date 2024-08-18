@@ -29,7 +29,17 @@ function getMapStyle() {
       "horizon-fog-blend": 0.5,
       "fog-color": "#0000ff",
       "fog-ground-blend": 0.5,
-      "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 10, 1, 12, 0],
+      "atmosphere-blend": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        10,
+        1,
+        12,
+        0,
+      ],
     },
   };
 }
@@ -39,22 +49,33 @@ function getMapSources() {
   return {
     "background-osm-raster": {
       type: "raster",
-      tiles: ["https://tile.openstreetmap.jp/styles/osm-bright-ja/{z}/{x}/{y}.png"],
+      tiles: [
+        "https://tile.openstreetmap.jp/styles/osm-bright-ja/{z}/{x}/{y}.png",
+      ],
       tileSize: 256,
-      attribution: "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap contributors</a>",
+      attribution:
+        "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap contributors</a>",
     },
     "aws-terrain": {
       type: "raster-dem",
       minzoom: 1,
       maxzoom: 15,
       encoding: "terrarium",
-      tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
-      attribution: "ArcticDEM terrain data DEM(s) were created from DigitalGlobe, Inc., imagery and funded under National Science Foundation awards...",
+      tiles: [
+        "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+      ],
+      attribution:
+        "ArcticDEM terrain data DEM(s) were created from DigitalGlobe, Inc., imagery and funded under National Science Foundation awards...",
     },
     stop: {
       type: "geojson",
       data: "./data/stops.geojson",
-      attribution: "コンテンツ等の提供者名: 東京都交通局・公共交通オープンデータ協議会",
+      attribution:
+        "コンテンツ等の提供者名: 東京都交通局・公共交通オープンデータ協議会",
+    },
+    geogence: {
+      type: "geojson",
+      data: "./data/stops_buffer.geojson ",
     },
     route: {
       type: "geojson",
@@ -65,7 +86,8 @@ function getMapSources() {
       tiles: ["https://indigo-lab.github.io/plateau-lod2-mvt/{z}/{x}/{y}.pbf"],
       minzoom: 10,
       maxzoom: 16,
-      attribution: "<a href='https://github.com/indigo-lab/plateau-lod2-mvt'>plateau-lod2-mvt by indigo-lab</a>",
+      attribution:
+        "<a href='https://github.com/indigo-lab/plateau-lod2-mvt'>plateau-lod2-mvt by indigo-lab</a>",
     },
   };
 }
@@ -118,6 +140,15 @@ function getMapLayers() {
         "text-field": ["get", "stop_name"],
       },
     },
+    {
+      id: "buffer-layer",
+      type: "fill",
+      source: "geogence",
+      paint: {
+        "fill-color": "#ff0000",
+        "fill-opacity": 0.5,
+      },
+    },
   ];
 }
 
@@ -126,7 +157,9 @@ function loadGeoJsonData(url, callback) {
   fetch(url)
     .then((response) => response.json())
     .then(callback)
-    .catch((error) => console.error(`Error loading GeoJSON data from ${url}:`, error));
+    .catch((error) =>
+      console.error(`Error loading GeoJSON data from ${url}:`, error)
+    );
 }
 
 export { map, loadGeoJsonData };
