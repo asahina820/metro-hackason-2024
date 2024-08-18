@@ -4,7 +4,7 @@ const geolocateControl = new maplibregl.GeolocateControl({
   positionOptions: {
     enableHighAccuracy: true,
   },
-  fitBoundsOptions: { maxZoom: 18 },
+  fitBoundsOptions: { maxZoom: 18, bearing: 0 },
   trackUserLocation: true,
   showUserLocation: true,
 });

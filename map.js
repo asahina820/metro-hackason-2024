@@ -4,10 +4,10 @@
 const map = new maplibregl.Map({
   container: "map",
   center: [139.770692, 35.768351], // 中心座標
-  zoom: 13.5, // ズームレベル
+  zoom: 12.6, // ズームレベル
   pitch: 30,
   maxPitch: 85,
-  bearing: -80,
+  bearing: -60,
   style: getMapStyle(), // マップスタイルを外部関数から取得
 });
 
