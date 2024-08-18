@@ -123,3 +123,19 @@ body {
   margin: 0 auto 5px;
   height: 24px;
 }
+.message-section {
+  margin: 20px;
+  padding: 15px;
+  background-color: #f9ecec;
+  border: 1px solid #e89b9b;
+  border-radius: 5px;
+  text-align: center;
+  color: #b44;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .message-section p {
+    font-size: 14px;
+  }
+}

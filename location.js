@@ -54,19 +54,35 @@ function isInOperatingHours() {
 //
 function watchUserPosition() {
   const campaignSections = document.getElementById("campaign-sections");
+  const messageSection = document.getElementById("message-section");
+  const areaMessage = document.getElementById("area-message");
+  const timeMessage = document.getElementById("time-message");
+  let showAreaMessage = false;
+  let showTimeMessage = false;
+
   if (!isInOperatingHours()) {
     console.log("時間外です");
-    campaignSections.style.display = "none";
-    return;
+    showTimeMessage = true;
   }
 
   const inside = turf.booleanPointInPolygon(currentLocation, geofence);
+
   if (inside) {
     console.log("ユーザーはジオフェンス内にいます");
-    campaignSections.style.display = "block";
   } else {
     console.log("ユーザーはジオフェンス外にいます");
+    showAreaMessage = true;
+  }
+
+  // ユーザの位置・時間によって画面の表示を出し分ける
+  if (showAreaMessage || showTimeMessage) {
     campaignSections.style.display = "none";
+    messageSection.style.display = "block";
+    areaMessage.style.display = showAreaMessage ? "block" : "none";
+    timeMessage.style.display = showTimeMessage ? "block" : "none";
+  } else {
+    campaignSections.style.display = "block";
+    messageSection.style.display = "none";
   }
 }
 
