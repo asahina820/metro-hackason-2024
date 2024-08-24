@@ -1,3 +1,4 @@
+/* 全体のレイアウト設定 */
 html,
 body {
   width: 100%;
@@ -55,24 +56,24 @@ body {
 
 /* 初期状態で非表示 */
 .hidden {
-  transform: translateY(100%); /* 画面の下に配置 */
-  transition: transform 0.3s ease-out; /* スライドアップのアニメーション */
+  display: none; /* 非表示 */
   opacity: 0; /* 表示を隠す */
-  pointer-events: none; /* 要素が隠れている場合、クリックなどの操作を無効にする */
+  transform: translateY(100%); /* 画面の下に配置 */
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* スライドアップとフェードインのアニメーション */
 }
 
 /* 表示状態でスライドアップ */
 .slide-up {
-  transform: translateY(0); /* 元の位置にスライドアップ */
-  transition: transform 0.3s ease-out;
+  display: block;
   opacity: 1;
-  pointer-events: all; /* 要素が表示されている場合、クリックなどの操作を有効にする */
+  transform: translateY(0); /* 元の位置にスライドアップ */
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
-/* キャンペーンセクションの基本スタイル */
+/* キャンペーンセクションとメッセージセクションの基本スタイル */
 .campaign-section,
 .message-section {
-  position: fixed; /* fixedに変更し、上下のスクロールでズレないようにする */
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -82,4 +83,19 @@ body {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   z-index: 10;
+}
+
+/* メッセージセクションのテキストスタイル */
+.message-section p {
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+@media screen and (max-width: 600px) {
+  .message-section p {
+    font-size: 14px;
+  }
 }
