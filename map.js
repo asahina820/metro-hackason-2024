@@ -9,7 +9,18 @@ const map = new maplibregl.Map({
   maxPitch: 85,
   bearing: -60,
   style: getMapStyle(), // マップスタイルを外部関数から取得
+  attributionControl: false,
 });
+
+// Attributionを折りたたみ表示
+map.addControl(
+  map.addControl(
+    new maplibregl.AttributionControl({
+      compact: true,
+    }),
+    "top-right"
+  )
+);
 
 // マップスタイルの設定を外部関数化
 function getMapStyle() {
@@ -18,10 +29,6 @@ function getMapStyle() {
     glyphs: "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
     sources: getMapSources(),
     layers: getMapLayers(),
-    terrain: {
-      source: "aws-terrain",
-      exaggeration: 1,
-    },
     sky: {
       "sky-color": "#199EF3",
       "sky-horizon-blend": 0.5,
@@ -42,14 +49,6 @@ function getMapSources() {
       tiles: ["https://tile.openstreetmap.jp/styles/osm-bright-ja/{z}/{x}/{y}.png"],
       tileSize: 256,
       attribution: "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap contributors</a>",
-    },
-    "aws-terrain": {
-      type: "raster-dem",
-      minzoom: 1,
-      maxzoom: 15,
-      encoding: "terrarium",
-      tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
-      attribution: "ArcticDEM terrain data DEM(s) were created from DigitalGlobe, Inc., imagery and funded under National Science Foundation awards...",
     },
     stop: {
       type: "geojson",
