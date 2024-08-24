@@ -8,6 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden; /* スクロールバーを隠す */
+  box-sizing: border-box; /* パディングとボーダーを含めて幅を計算 */
 }
 
 #map {
@@ -29,8 +30,9 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10; /* ヘッダーが地図の上に表示されるように */
-  width: 50%; /* 横幅の50%を占める */
+  width: calc(100% - 40px); /* 横幅を画面幅に対して調整 */
   max-width: 300px; /* 最大幅を指定 */
+  box-sizing: border-box;
 }
 
 .header .logo span {
@@ -45,8 +47,10 @@ body {
 /* スマホ画面での調整 */
 @media screen and (max-width: 600px) {
   .header {
-    width: 80%; /* 横幅の80%を占める */
+    width: calc(100% - 20px); /* 横幅をスマホ画面に合わせて調整 */
     max-width: none; /* スマホでは最大幅の制限を解除 */
+    left: 10px; /* 左の余白を少なく */
+    right: 10px; /* 右の余白を設定 */
   }
 
   .header .logo span {
@@ -56,33 +60,37 @@ body {
 
 /* 初期状態で非表示 */
 .hidden {
-  display: none; /* 非表示 */
+  max-height: 0; /* 高さを0に */
   opacity: 0; /* 表示を隠す */
-  transform: translateY(100%); /* 画面の下に配置 */
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* スライドアップとフェードインのアニメーション */
+  overflow: hidden; /* 要素がはみ出ないようにする */
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out; /* 高さと不透明度のアニメーション */
 }
 
 /* 表示状態でスライドアップ */
 .slide-up {
-  display: block;
+  max-height: 1000px; /* 高さを十分な値に設定 */
   opacity: 1;
   transform: translateY(0); /* 元の位置にスライドアップ */
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
 }
 
 /* キャンペーンセクションとメッセージセクションの基本スタイル */
 .campaign-section,
 .message-section {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   background-color: white;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 子要素を中央に配置 */
+  padding: 20px; /* 内側に余白を追加 */
+  box-sizing: border-box; /* パディングとボーダーを含めて幅を計算 */
 }
 
 /* メッセージセクションのテキストスタイル */
@@ -92,10 +100,52 @@ body {
   text-align: center;
   font-size: 16px;
   color: #333;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 600px) {
   .message-section p {
     font-size: 14px;
   }
+}
+
+/* クーポンのスタイル */
+.coupon {
+  background-color: #f9f9f9;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 90%; /* クーポンの幅を90%に固定 */
+  max-width: 800px; /* 最大幅を500pxに設定 */
+  margin: 10px auto; /* 上下にマージン、左右は自動で中央寄せ */
+}
+
+.coupon-header {
+  background-color: #ffcc00;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.coupon-body {
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.coupon-description {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.coupon-code {
+  font-size: 14px;
+  color: #333;
+}
+
+.coupon-expiry {
+  font-size: 12px;
+  color: #666;
 }
