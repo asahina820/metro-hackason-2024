@@ -5,137 +5,77 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-}
-
-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.header,
-.check-in-section,
-.campaign-section {
-  flex: 0;
-}
-
-.header {
-  background-color: #48a868; /* 日暮里舎人ライナーの色を反映 */
-  color: white;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.header .logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header .logo img {
-  height: 100px;
-  margin-right: 10px;
-}
-
-.header .logo span {
-  font-size: 50px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.check-in-section,
-.campaign-section {
-  padding: 15px;
+  overflow: hidden; /* スクロールバーを隠す */
 }
 
 #map {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 700px;
-  border: 2px solid #48a868;
+  height: 100%;
+}
+
+.header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(72, 168, 104, 0.8); /* 半透明の背景 */
+  color: white;
+  padding: 10px 20px;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* ヘッダーが地図の上に表示されるように */
+  width: 50%; /* 横幅の50%を占める */
+  max-width: 300px; /* 最大幅を指定 */
 }
 
-.campaign-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.campaign-item {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.campaign-item img {
-  height: 200x;
-  width: 200px;
-  margin-right: 20px;
-}
-
-.campaign-details {
-  flex: 1;
-}
-
-.campaign-details h3 {
-  margin: 0;
-  font-size: 25px; /* 見出しのフォントサイズを大きく */
-}
-
-.campaign-details p {
-  margin: 5px 0 0;
-  font-size: 16px; /* サブテキストのフォントサイズを大きく */
-  color: #555;
-}
-
-.campaign-menu {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.campaign-menu img {
-  height: 25px;
-  width: 25px;
-}
-
-.nav-menu {
-  display: flex;
-  justify-content: space-around;
-  background-color: #fff;
-  padding: 10px;
-  border-top: 2px solid #48a868;
-}
-
-.nav-menu a {
-  text-align: center;
-  font-size: 12px;
-  color: #333;
-  text-decoration: none;
-}
-
-.nav-menu img {
+.header .logo span {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   display: block;
-  margin: 0 auto 5px;
-  height: 24px;
-}
-.message-section {
-  margin: 20px;
-  padding: 15px;
-  background-color: #f9ecec;
-  border: 1px solid #e89b9b;
-  border-radius: 5px;
-  text-align: center;
-  color: #b44;
-  font-size: 16px;
+  text-align: center; /* ロゴを中央揃え */
 }
 
+/* スマホ画面での調整 */
 @media screen and (max-width: 600px) {
-  .message-section p {
-    font-size: 14px;
+  .header {
+    width: 80%; /* 横幅の80%を占める */
+    max-width: none; /* スマホでは最大幅の制限を解除 */
   }
+
+  .header .logo span {
+    font-size: 28px; /* スマホでさらに大きく表示 */
+  }
+}
+/* 初期状態で非表示 */
+.hidden {
+  transform: translateY(100%); /* 画面の下に配置 */
+  transition: transform 0.3s ease-out; /* スライドアップのアニメーション */
+  opacity: 0; /* 表示を隠す */
+  pointer-events: none; /* 要素が隠れている場合、クリックなどの操作を無効にする */
+}
+
+/* 表示状態でスライドアップ */
+.slide-up {
+  transform: translateY(0); /* 元の位置にスライドアップ */
+  transition: transform 0.3s ease-out;
+  opacity: 1;
+  pointer-events: all; /* 要素が表示されている場合、クリックなどの操作を有効にする */
+}
+
+/* キャンペーンセクションの基本スタイル */
+.campaign-section,
+.message-section {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }

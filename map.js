@@ -4,7 +4,7 @@
 const map = new maplibregl.Map({
   container: "map",
   center: [139.770692, 35.768351], // 中心座標
-  zoom: 12.6, // ズームレベル
+  zoom: 16, // ズームレベル
   pitch: 30,
   maxPitch: 85,
   bearing: -60,

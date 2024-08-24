@@ -11,68 +11,26 @@
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   </head>
   <body>
+    <div id="map"></div>
     <header class="header">
       <div class="logo">
-        <img src="img/logo.png" alt="OFF PEAK LINER" />
         <span>OFF PEAK LINER</span>
       </div>
     </header>
 
-    <div class="main-content">
-      <div class="check-in-section">
-        <h2>チェックイン</h2>
-        <div id="map"></div>
-      </div>
-      <div id="campaign-sections" style="display: none">
-        <div class="campaign-section">
-          <h2>特典</h2>
-          <ul class="campaign-list">
-            <li class="campaign-item">
-              <img src="icon.png" alt="キャンペーンアイコン" />
-              <div class="campaign-details">
-                <h3>日経電子版（仮）</h3>
-                <p>日経新聞の朝刊・夕刊の掲載記事に加え、電子版オリジナル記事を幅広く提供、 毎日約1,000本の情報を配信しています。 新聞だけでは手に入らない速報やニュースの解説、専門情報も幅広くご用意。仕事から暮らし、 投資まで日経独自の情報をお届けします。（仮）</p>
-              </div>
-            </li>
-            <li class="campaign-item">
-              <img src="icon.png" alt="キャンペーンアイコン" />
-              <div class="campaign-details">
-                <h3>NetFlix</h3>
-                <p>Netflixは、メンバーシップ制のストリーミングサービスです。メンバーはインターネットに接続したデバイスを使ってドラマや映画を視聴できます。</p>
-              </div>
-              <button class="campaign-menu">
-                <img src="menu-icon.png" alt="メニュー" />
-              </button>
-            </li>
-            <!-- 他のリストアイテムも同様に追加 -->
-          </ul>
-        </div>
-        <div class="campaign-section">
-          <h2>クーポン</h2>
-          <ul class="campaign-list">
-            <li class="campaign-item">
-              <img src="icon.png" alt="キャンペーンアイコン" />
-              <div class="campaign-details">
-                <h3>ドトールコーヒー（仮）</h3>
-                <p>レギュラーコーヒー100円引き（仮）</p>
-              </div>
-            </li>
-            <li class="campaign-item">
-              <img src="icon.png" alt="キャンペーンアイコン" />
-              <div class="campaign-details">
-                <h3>ドトールコーヒー（仮）</h3>
-                <p>レギュラーコーヒー100円引き（仮）</p>
-              </div>
-            </li>
-            <!-- 他のリストアイテムも同様に追加 -->
-          </ul>
-        </div>
-      </div>
-      <div id="message-section" style="display: none" class="message-section">
-        <p id="area-message" style="display: none">エリア外です。日暮里・舎人ライナーの駅に行ってみましょう！</p>
-        <p id="time-message" style="display: none">時間外です。11~19時に行ってみましょう！</p>
-      </div>
+    <!-- 特典セクション -->
+    <div id="campaign-sections" class="hidden campaign-section">
+      <!-- 特典のコンテンツがここに入る -->
+      <h2>特典</h2>
+      <p>特典の詳細をここに表示します。</p>
     </div>
+
+    <!-- メッセージセクション -->
+    <div id="message-section" class="hidden message-section">
+      <p id="area-message" class="hidden">エリア外です。日暮里・舎人ライナーの駅に行ってみましょう！</p>
+      <p id="time-message" class="hidden">時間外です。11~19時に行ってみましょう！</p>
+    </div>
+
     <script type="module" src="trainAnimation.js"></script>
     <script type="module" src="map.js"></script>
     <script type="module" src="location.js"></script>

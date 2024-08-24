@@ -44,6 +44,7 @@ const geofence = {
     ],
   },
 };
+
 // 時間を判定
 function isInOperatingHours() {
   const now = new Date();
@@ -51,7 +52,6 @@ function isInOperatingHours() {
   return hours >= 10 && hours <= 19; // 10時から11時までの間
 }
 
-//
 function watchUserPosition() {
   const campaignSections = document.getElementById("campaign-sections");
   const messageSection = document.getElementById("message-section");
@@ -76,17 +76,24 @@ function watchUserPosition() {
 
   // ユーザの位置・時間によって画面の表示を出し分ける
   if (showAreaMessage || showTimeMessage) {
-    campaignSections.style.display = "none";
-    messageSection.style.display = "block";
+    campaignSections.classList.remove("slide-up");
+    campaignSections.classList.add("hidden");
+    messageSection.classList.remove("hidden");
+    messageSection.classList.add("slide-up");
     areaMessage.style.display = showAreaMessage ? "block" : "none";
     timeMessage.style.display = showTimeMessage ? "block" : "none";
   } else {
-    campaignSections.style.display = "block";
-    messageSection.style.display = "none";
+    messageSection.classList.remove("slide-up");
+    messageSection.classList.add("hidden");
+    campaignSections.classList.remove("hidden");
+    campaignSections.classList.add("slide-up");
   }
 }
 
 map.on("load", () => {
+  // 現在地ボタンを自動的に押す
+  geolocateControl.trigger();
+
   // ユーザーの位置が取得されたときの処理
   geolocateControl.on("geolocate", (position) => {
     currentLocation = [position.coords.longitude, position.coords.latitude];
