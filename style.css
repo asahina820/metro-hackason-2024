@@ -22,7 +22,7 @@ body {
 /* ヘッダーのスタイル */
 .header {
   position: fixed; /* fixedにしてスクロールと関係なく固定 */
-  top: 10px;
+  top: 50px;
   left: 10px;
   background-color: rgba(72, 168, 104, 0.8); /* 半透明の背景 */
   color: white;
