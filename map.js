@@ -36,7 +36,17 @@ function getMapStyle() {
       "horizon-fog-blend": 0.5,
       "fog-color": "#0000ff",
       "fog-ground-blend": 0.5,
-      "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 10, 1, 12, 0],
+      "atmosphere-blend": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        10,
+        1,
+        12,
+        0,
+      ],
     },
   };
 }
@@ -46,14 +56,18 @@ function getMapSources() {
   return {
     "background-osm-raster": {
       type: "raster",
-      tiles: ["https://tile.openstreetmap.jp/styles/osm-bright-ja/{z}/{x}/{y}.png"],
+      tiles: [
+        "https://tile.openstreetmap.jp/styles/osm-bright-ja/{z}/{x}/{y}.png",
+      ],
       tileSize: 256,
-      attribution: "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap contributors</a>",
+      attribution:
+        "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap contributors</a>",
     },
     stop: {
       type: "geojson",
       data: "./data/stops.geojson",
-      attribution: "コンテンツ等の提供者名: 東京都交通局・公共交通オープンデータ協議会",
+      attribution:
+        "コンテンツ等の提供者名: 東京都交通局・公共交通オープンデータ協議会",
     },
     geogence: {
       type: "geojson",
@@ -68,7 +82,8 @@ function getMapSources() {
       tiles: ["https://indigo-lab.github.io/plateau-lod2-mvt/{z}/{x}/{y}.pbf"],
       minzoom: 10,
       maxzoom: 16,
-      attribution: "<a href='https://github.com/indigo-lab/plateau-lod2-mvt'>plateau-lod2-mvt by indigo-lab</a>",
+      attribution:
+        "<a href='https://github.com/indigo-lab/plateau-lod2-mvt'>plateau-lod2-mvt by indigo-lab</a>",
     },
   };
 }
@@ -126,7 +141,9 @@ function loadGeoJsonData(url, callback) {
   fetch(url)
     .then((response) => response.json())
     .then(callback)
-    .catch((error) => console.error(`Error loading GeoJSON data from ${url}:`, error));
+    .catch((error) =>
+      console.error(`Error loading GeoJSON data from ${url}:`, error)
+    );
 }
 
 export { map, loadGeoJsonData };
