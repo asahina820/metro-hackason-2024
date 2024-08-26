@@ -1,5 +1,3 @@
-// trainAnimation.js
-
 import { map, loadGeoJsonData } from "./map.js";
 
 // 駅データの処理
@@ -28,7 +26,8 @@ function processRouteData(routeData, minumadaiCoords, nipporiCoords) {
   const segment = getRouteSegment(routeData, minumadaiCoords, nipporiCoords);
   const length = turf.length(segment);
 
-  document.getElementById("start-button").addEventListener("click", () => startAnimation(segment, length));
+  // アニメーションをロード時に自動的に開始するように変更
+  startAnimation(segment, length);
 }
 
 // 路線セグメントの取得
